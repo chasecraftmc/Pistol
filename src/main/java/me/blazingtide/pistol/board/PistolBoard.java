@@ -38,9 +38,8 @@ public class PistolBoard {
     public void init() {
         objective = scoreboard.registerNewObjective(player.getName(), "dummy");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.setDisplayName(ColorUtil.translate(pistol.getAdapter().getTitle(player)));
 
-        updateEntries();
+        update();
     }
 
     private void updateEntries() {
@@ -84,4 +83,8 @@ public class PistolBoard {
         return start;
     }
 
+    public void update() {
+        objective.setDisplayName(ColorUtil.translate(pistol.getAdapter().getTitle(player)));
+        updateEntries();
+    }
 }
