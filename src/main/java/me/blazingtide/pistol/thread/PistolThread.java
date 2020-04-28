@@ -5,6 +5,10 @@ import me.blazingtide.pistol.Pistol;
 import me.blazingtide.pistol.board.PistolBoard;
 import org.bukkit.scheduler.BukkitRunnable;
 
+/**
+ * Thread responsible for updating each player's scoreboard
+ * every x amount of ticks (20 ticks = 1 second)
+ */
 @AllArgsConstructor
 public class PistolThread extends BukkitRunnable {
 

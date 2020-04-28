@@ -4,6 +4,9 @@ import com.google.common.collect.Maps;
 import lombok.Getter;
 import me.blazingtide.pistol.adapter.PistolAdapter;
 import me.blazingtide.pistol.board.PistolBoard;
+import me.blazingtide.pistol.listener.PistolListener;
+import me.blazingtide.pistol.thread.PistolThread;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Map;
@@ -29,5 +32,8 @@ public class Pistol {
     public Pistol(JavaPlugin plugin, PistolAdapter adapter) {
         this.plugin = plugin;
         this.adapter = adapter;
+
+        Bukkit.getPluginManager().registerEvents(new PistolListener(this), plugin);
+        new PistolThread(this).runTaskTimerAsynchronously(plugin, 2L, 2L);
     }
 }
