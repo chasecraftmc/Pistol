@@ -43,11 +43,20 @@ public class PistolBoard {
         update();
     }
 
-    //TODO: Need to reuse entries cuz creating objects so much is not that good
     private void buildEntries() {
         //Reset the scores every time you build entries
         final List<String> lines = pistol.getAdapter().getLines(player);
         final List<String> entriesList = new ArrayList<>(entries.keySet());
+
+        if (lines == null || lines.isEmpty()) {
+            entriesList.forEach(str -> {
+                scoreboard.resetScores(str);
+                entries.get(str).getTeam().unregister();
+            });
+            entries.clear();
+            return;
+        }
+
         Collections.reverse(lines); //have to reverse it since minecraft's scoreboard scores are in ascending order.
 
         //Remove all lines that are unneeded
@@ -57,6 +66,7 @@ public class PistolBoard {
 
                 scoreboard.resetScores(str);
                 entries.get(str).getTeam().unregister();
+                entries.remove(str);
             }
         }
 
