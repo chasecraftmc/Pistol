@@ -17,10 +17,11 @@ public class BoardEntry {
     private final Team team;
 
     public static BoardEntry of(Scoreboard scoreboard, String id, String line) {
-        final Team team = scoreboard.getTeam(id);
+        final Team team = scoreboard.getTeam(id) != null ? scoreboard.getTeam(id) : scoreboard.registerNewTeam(id);
         final String prefix = line.length() > 16 ? line.substring(0, 16) : line;
         final String suffix = line.length() > 16 ? ChatColor.getLastColors(prefix) + line.substring(16, Math.min(16, line.length())) : "";
 
+        team.addEntry(id);
         team.setPrefix(prefix);
         team.setSuffix(suffix);
 

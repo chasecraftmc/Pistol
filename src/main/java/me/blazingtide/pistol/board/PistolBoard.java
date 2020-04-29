@@ -5,7 +5,6 @@ import lombok.Getter;
 import me.blazingtide.pistol.Pistol;
 import me.blazingtide.pistol.board.entry.BoardEntry;
 import me.blazingtide.pistol.util.ColorUtil;
-import org.apache.commons.lang.CharUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -42,15 +41,14 @@ public class PistolBoard {
         update();
     }
 
-    private void updateEntries() {
-        buildEntries();
-
-        player.setScoreboard(scoreboard);
-    }
-
+    //TODO: Need to reuse entries cuz creating objects so much is not that good
     private void buildEntries() {
         //Reset the scores every time you build entries
-        entries.keySet().forEach(scoreboard::resetScores);
+        //TODO: Optimize this so it doesn't remove scores that don't need to be removed.
+        entries.keySet().forEach(str -> {
+            scoreboard.resetScores(str);
+            entries.get(str).getTeam().unregister();
+        });
         entries.clear();
 
         final List<String> lines = pistol.getAdapter().getLines(player);
@@ -85,6 +83,7 @@ public class PistolBoard {
 
     public void update() {
         objective.setDisplayName(ColorUtil.translate(pistol.getAdapter().getTitle(player)));
-        updateEntries();
+        buildEntries();
+        player.setScoreboard(scoreboard);
     }
 }

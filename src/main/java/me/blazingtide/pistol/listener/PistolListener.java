@@ -20,12 +20,13 @@ public class PistolListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        Bukkit.getScheduler().runTaskAsynchronously(pistol.getPlugin(), () -> {
-            final PistolBoard board = new PistolBoard(pistol, player);
+//        Bukkit.getScheduler().runTaskAsynchronously(pistol.getPlugin(), () -> {
+//
+//        });
+        final PistolBoard board = new PistolBoard(pistol, player);
 
-            board.init();
-            pistol.getBoards().put(player.getUniqueId(), board);
-        });
+        board.init();
+        pistol.getBoards().put(player.getUniqueId(), board);
     }
 
     @EventHandler
