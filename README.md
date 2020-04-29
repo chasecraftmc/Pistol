@@ -1,6 +1,8 @@
 # Pistol  
 Extensive Scoreboard API for the Spigot API
 
+![Showcase](https://i.imgur.com/fbPPxcC.gif)
+
 ### Installation
 1. Retrieve the jar in ``/target/`` or compile the plugin via git and maven.
 2. Add the project as a maven dependency or put it in your build path.
@@ -17,6 +19,6 @@ public void onEnable() {
 }
 ```
 
-#### Contact
+### Contact
 **Telegram**: @BlazingTide  
 **Discord**:  BlazingTide#3817
