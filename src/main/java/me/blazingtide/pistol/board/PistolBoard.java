@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -52,6 +53,7 @@ public class PistolBoard {
         entries.clear();
 
         final List<String> lines = pistol.getAdapter().getLines(player);
+        Collections.reverse(lines); //have to reverse it since minecraft's scoreboard scores are in ascending order.
 
         //MC limits to 15 lines per scoreboard so we only want to do the first 15 lines
         for (int i = 0; i < Math.min(lines.size(), 16); i++) {
