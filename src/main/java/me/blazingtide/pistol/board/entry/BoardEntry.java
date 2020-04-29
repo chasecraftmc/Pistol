@@ -23,7 +23,7 @@ public class BoardEntry {
         }
 
         final String prefix = line.length() > 16 ? line.substring(0, 16) : line;
-        final String suffix = line.length() > 16 ? ChatColor.getLastColors(prefix) + line.substring(16, Math.min(16, line.length())) : "";
+        final String suffix = line.length() > 16 ? ChatColor.getLastColors(prefix) + line.substring(15, Math.min(16, line.length())) : "";
 
         team.setPrefix(prefix);
         team.setSuffix(suffix);
