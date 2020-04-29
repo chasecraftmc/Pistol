@@ -17,6 +17,6 @@ public void onEnable() {
 }
 ```
 
-####Contact
+#### Contact
 **Telegram**: @BlazingTide  
 **Discord**:  BlazingTide#3817
