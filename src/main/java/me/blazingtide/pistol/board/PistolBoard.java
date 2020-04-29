@@ -3,6 +3,7 @@ package me.blazingtide.pistol.board;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import me.blazingtide.pistol.Pistol;
+import me.blazingtide.pistol.adapter.impl.NegativePistolAdapter;
 import me.blazingtide.pistol.board.entry.BoardEntry;
 import me.blazingtide.pistol.util.ColorUtil;
 import org.bukkit.Bukkit;
@@ -57,7 +58,9 @@ public class PistolBoard {
             return;
         }
 
-        Collections.reverse(lines); //have to reverse it since minecraft's scoreboard scores are in ascending order.
+        if (!(pistol.getAdapter() instanceof NegativePistolAdapter)) {
+            Collections.reverse(lines); //have to reverse it since minecraft's scoreboard scores are in ascending order.
+        }
 
         //Remove all lines that are unneeded
         if (lines.size() < entries.size()) {
@@ -77,7 +80,7 @@ public class PistolBoard {
             final Score score = objective.getScore(entry.getId());
 
             entry.update(ColorUtil.translate(line));
-            score.setScore(i);
+            score.setScore(pistol.getAdapter() instanceof NegativePistolAdapter ? i * -1 : i);
 
             entries.putIfAbsent(entry.getId(), entry);
         }
