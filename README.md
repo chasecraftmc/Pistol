@@ -1,4 +1,4 @@
-#Pistol
+# Pistol  
 Extensive Scoreboard API for the Spigot API
 
 ### Installation
