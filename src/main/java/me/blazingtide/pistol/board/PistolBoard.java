@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -45,25 +46,30 @@ public class PistolBoard {
     //TODO: Need to reuse entries cuz creating objects so much is not that good
     private void buildEntries() {
         //Reset the scores every time you build entries
-        //TODO: Optimize this so it doesn't remove scores that don't need to be removed.
-        entries.keySet().forEach(str -> {
-            scoreboard.resetScores(str);
-            entries.get(str).getTeam().unregister();
-        });
-        entries.clear();
-
         final List<String> lines = pistol.getAdapter().getLines(player);
+        final List<String> entriesList = new ArrayList<>(entries.keySet());
         Collections.reverse(lines); //have to reverse it since minecraft's scoreboard scores are in ascending order.
+
+        //Remove all lines that are unneeded
+        if (lines.size() < entries.size()) {
+            for (int i = lines.size(); i < entriesList.size(); i++) {
+                final String str = entriesList.get(i);
+
+                scoreboard.resetScores(str);
+                entries.get(str).getTeam().unregister();
+            }
+        }
 
         //MC limits to 15 lines per scoreboard so we only want to do the first 15 lines
         for (int i = 0; i < Math.min(lines.size(), 16); i++) {
             final String line = lines.get(i);
-            final BoardEntry entry = BoardEntry.of(scoreboard, findId(""), ColorUtil.translate(line));
-
+            final BoardEntry entry = entriesList.size() > i ? entries.get(entriesList.get(i)) : BoardEntry.of(scoreboard, findId(""));
             final Score score = objective.getScore(entry.getId());
+
+            entry.update(ColorUtil.translate(line));
             score.setScore(i);
 
-            entries.put(entry.getId(), entry);
+            entries.putIfAbsent(entry.getId(), entry);
         }
     }
 
