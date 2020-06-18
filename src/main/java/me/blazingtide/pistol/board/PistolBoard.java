@@ -3,6 +3,7 @@ package me.blazingtide.pistol.board;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import me.blazingtide.pistol.Pistol;
+import me.blazingtide.pistol.adapter.impl.KohiPistolAdapter;
 import me.blazingtide.pistol.adapter.impl.NegativePistolAdapter;
 import me.blazingtide.pistol.board.entry.BoardEntry;
 import me.blazingtide.pistol.util.ColorUtil;
@@ -74,15 +75,17 @@ public class PistolBoard {
         }
 
         //MC limits to 15 lines per scoreboard so we only want to do the first 15 lines
+        int kohi = 15; //Kohi counter
         for (int i = 0; i < Math.min(lines.size(), 16); i++) {
             final String line = lines.get(i);
             final BoardEntry entry = entriesList.size() > i ? entries.get(entriesList.get(i)) : BoardEntry.of(scoreboard, findId(""));
             final Score score = objective.getScore(entry.getId());
 
             entry.update(ColorUtil.translate(line));
-            score.setScore(pistol.getAdapter() instanceof NegativePistolAdapter ? i * -1 : i);
+            score.setScore(pistol.getAdapter() instanceof NegativePistolAdapter ? i * -1 : pistol.getAdapter() instanceof KohiPistolAdapter ? kohi : i);
 
             entries.putIfAbsent(entry.getId(), entry);
+            kohi--;
         }
     }
 
