@@ -22,8 +22,10 @@ public class BoardEntry {
             return;
         }
 
+        line = line.trim();
         prefix = line.substring(0, Math.min(16, line.length()));
-        final String lastColors = ChatColor.getLastColors(prefix);
+
+        String lastColors = ChatColor.getLastColors(prefix);
 
         if (prefix.length() != line.length()) {
             suffix = lastColors + line.substring(16);
