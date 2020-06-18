@@ -22,19 +22,31 @@ public class BoardEntry {
             return;
         }
 
-        final String prefix = line.length() > 16 ? line.substring(0, 16) : line;
-        final String suffix = line.length() > 16 ? ChatColor.getLastColors(prefix) + line.substring(15, Math.min(16, line.length())) : "";
+        prefix = line.substring(0, Math.min(16, line.length()));
+        final String lastColors = ChatColor.getLastColors(prefix);
+
+        if (prefix.length() != line.length()) {
+            suffix = lastColors + line.substring(15);
+            suffix = suffix.substring(0, Math.min(16, suffix.length()));
+        }
+
+//        final String suffix = line.length() > 16 ? lastColors + line.substring(15, Math.min(16, line.length())) : "";
 
         team.setPrefix(prefix);
-        team.setSuffix(suffix);
 
-        if (!team.hasEntry(id)) {
-            team.addEntry(id);
+        if (suffix != null) {
+            team.setSuffix(suffix);
         }
+
+//        if (!team.hasEntry(id)) {
+//            team.addEntry(id);
+//        }
     }
 
     public static BoardEntry of(Scoreboard scoreboard, String id) {
         final Team team = scoreboard.getTeam(id) != null ? scoreboard.getTeam(id) : scoreboard.registerNewTeam(id);
+        team.addEntry(id);
+
         return new BoardEntry(id, team);
     }
 
