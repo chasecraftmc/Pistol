@@ -30,17 +30,11 @@ public class BoardEntry {
             suffix = suffix.substring(0, Math.min(16, suffix.length()));
         }
 
-//        final String suffix = line.length() > 16 ? lastColors + line.substring(15, Math.min(16, line.length())) : "";
-
         team.setPrefix(prefix);
 
         if (suffix != null) {
             team.setSuffix(suffix);
         }
-
-//        if (!team.hasEntry(id)) {
-//            team.addEntry(id);
-//        }
     }
 
     public static BoardEntry of(Scoreboard scoreboard, String id) {
