@@ -14,7 +14,7 @@ public class BoardEntry {
     private String fullString;
 
     private String prefix;
-    private String suffix;
+    private String suffix = "";
 
     public void update(String line) {
         //Don't need to update the line if they're both the same.
@@ -25,16 +25,17 @@ public class BoardEntry {
         line = line.trim();
         prefix = line.substring(0, Math.min(16, line.length()));
 
-        team.setPrefix(prefix);
-
         if (prefix.length() != line.length()) {
             String lastColors = ChatColor.getLastColors(prefix);
 
             suffix = lastColors + line.substring(16);
             suffix = suffix.substring(0, Math.min(16, suffix.length()));
-
-            team.setSuffix(suffix);
+        } else if (!suffix.isEmpty()) {
+            suffix = "";
         }
+
+        team.setPrefix(prefix);
+        team.setSuffix(suffix);
 
         fullString = line;
     }
