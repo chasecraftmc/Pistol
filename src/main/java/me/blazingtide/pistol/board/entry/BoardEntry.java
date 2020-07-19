@@ -22,7 +22,6 @@ public class BoardEntry {
             return;
         }
 
-        line = line.trim();
         prefix = line.substring(0, Math.min(16, line.length()));
 
         if (prefix.length() != line.length()) {
