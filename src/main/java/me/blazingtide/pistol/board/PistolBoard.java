@@ -106,7 +106,13 @@ public class PistolBoard {
     }
 
     public void update() {
-        objective.setDisplayName(ColorUtil.translate(pistol.getAdapter().getTitle(player)));
+        String title = pistol.getAdapter().getTitle(player);
+
+        if (title == null) {
+            title = "";
+        }
+
+        objective.setDisplayName(ColorUtil.translate(title));
         buildEntries();
         player.setScoreboard(scoreboard);
     }
