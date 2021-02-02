@@ -26,4 +26,13 @@ public interface PistolAdapter {
      */
     List<String> getLines(Player player);
 
+    /**
+     * Restricts scoreboard lines to be max 32 chars
+     *
+     * @return
+     */
+    default boolean restrictLines() {
+        return true;
+    }
+
 }

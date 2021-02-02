@@ -22,7 +22,7 @@ public class Pistol {
 
     private final JavaPlugin plugin;
     private final PistolAdapter adapter;
-
+    
     private final Map<UUID, PistolBoard> boards = Maps.newHashMap();
 
     /**

@@ -81,7 +81,7 @@ public class PistolBoard {
             final BoardEntry entry = entriesList.size() > i ? entries.get(entriesList.get(i)) : BoardEntry.of(scoreboard, findId(""));
             final Score score = objective.getScore(entry.getId());
 
-            entry.update(ColorUtil.translate(line));
+            entry.update(ColorUtil.translate(line), pistol.getAdapter().restrictLines());
             score.setScore(pistol.getAdapter() instanceof NegativePistolAdapter ? i * -1 : pistol.getAdapter() instanceof KohiPistolAdapter ? kohi : i);
 
             entries.putIfAbsent(entry.getId(), entry);
